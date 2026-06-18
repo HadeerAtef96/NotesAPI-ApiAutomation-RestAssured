@@ -1,0 +1,134 @@
+{
+  "userData": {
+    "name": "Hadeer Atef",
+    "email": "hadeer_atef@gmail.com",
+    "password": "Test@123123",
+    "id": "6a23596eb1a0ce0296e8ff6c"
+  },
+
+  "noteInfo": {
+    "title": "Test Title for Hadeer",
+    "description": "Test Description for Hadeer",
+    "category": "Personal",
+    "completed": "false",
+    "id": "6a2a0036c760c30296c6db6f"
+  },
+
+  "successMessages": {
+    "register": "User account created successfully",
+    "login": "Login successful",
+    "getProfile": "Profile successful",
+    "updateProfile": "Profile updated successful",
+    "createNote": "Note successfully created",
+    "updateNote": "Note successfully Updated",
+    "getNote": "Note successfully retrieved",
+    "deleteNote": "Note successfully deleted",
+    "getAllNotes": "Notes successfully retrieved",
+    "logout": "User has been successfully logged out"
+  },
+
+  "successStatusCodes": {
+    "register": "201",
+    "login": "200",
+    "getProfile": "200",
+    "updateProfile": "200",
+    "createNote": "200",
+    "updateNote": "200",
+    "getNote": "200",
+    "deleteNote": "200",
+    "getAllNotes": "200",
+    "logout": "200"
+  },
+
+  "timeOut": {
+    "register": "10000",
+    "login": "5000",
+    "getProfile": "5000",
+    "updateProfile": "5000",
+    "createNote": "10000",
+    "updateNote": "5000",
+    "getNote": "5000",
+    "deleteNote": "5000",
+    "getAllNotes": "20000",
+    "logout": "5000"
+  },
+
+  "errorMessages": {
+    "getNote": {
+      "invalidID": "No note was found with the provided ID, Maybe it was deleted",
+      "invalidToken": "Access token is not valid or has expired, you will need to login"
+    },
+    "getAllNotes": {
+      "invalidToken": "No authentication token specified in x-auth-token header"
+    },
+    "login": {
+      "invalidCredentials": "Incorrect email address or password"
+    },
+    "register": {
+      "duplicatedEmail": "An account already exists with the same email address",
+      "incorrectFormatName": "User name must be between 4 and 30 characters",
+      "incorrectFormatPassword": "Password must be between 6 and 30 characters",
+      "incorrectFormatEmail": "A valid email address is required"
+    },
+    "updateProfile": {
+      "emptyName": "User name must be between 4 and 30 characters",
+      "incorrectToken": "Access token is not valid or has expired, you will need to login"
+    },
+    "createNote": {
+      "emptyTitle": "Title must be between 4 and 100 characters",
+      "undefineCategory" : "Category must be one of the categories: Home, Work, Personal"
+    },
+    "getProfile": {
+      "emptyToken": "No authentication token specified in x-auth-token header"
+    },
+    "updateNote": {
+      "incorrectId": "Note ID must be a valid ID"
+    },
+    "deleteNote": {
+      "incorrectId": "Note ID must be a valid ID"
+    },
+    "logout": {
+      "incorrectToken": "Access token is not valid or has expired, you will need to login",
+      "emptyToken" : "No authentication token specified in x-auth-token header"
+    }
+  },
+
+  "errorStatusCodes": {
+    "getNote": {
+      "invalidID": "404",
+      "invalidToken": "401"
+    },
+    "getAllNotes": {
+      "invalidToken": "401"
+    },
+    "login": {
+      "invalidCredentials": "401"
+    },
+    "register": {
+      "duplicatedEmail": "409",
+      "incorrectFormatName": "400",
+      "incorrectFormatPassword": "400",
+      "incorrectFormatEmail": "400"
+    },
+    "updateProfile": {
+      "emptyName": "400",
+      "incorrectToken": "401"
+    },
+    "createNote": {
+      "emptyTitle": "400"
+    },
+    "getProfile": {
+      "emptyToken": "401"
+    },
+    "updateNote": {
+      "incorrectId": "400"
+    },
+    "deleteNote": {
+      "incorrectId": "400"
+    },
+    "logout": {
+      "incorrectToken": "401",
+      "emptyToken": "401"
+    }
+  }
+}

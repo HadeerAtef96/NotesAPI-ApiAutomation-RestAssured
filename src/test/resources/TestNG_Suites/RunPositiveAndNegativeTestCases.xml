@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.1.dtd" >
+
+<suite name="Notes API">
+
+    <test name="Positive Test" enabled="true">
+        <groups>
+            <run>
+                <include name="positive"/>
+            </run>
+        </groups>
+
+        <packages>
+            <package name="testCases"/>
+        </packages>
+    </test>
+
+    <test name="Negative Test" enabled="true">
+        <groups>
+            <run>
+                <include name="negative"/>
+            </run>
+        </groups>
+
+        <packages>
+            <package name="testCases"/>
+        </packages>
+    </test>
+
+</suite>

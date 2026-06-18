@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.1.dtd" >
+
+<suite name="Notes API">
+
+    <test name="Single Test" enabled="true">
+        <classes>
+            <class name = "testCases.CreateNoteTests">
+                <methods>
+                    <include name="createNewNoteWithStaticData" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

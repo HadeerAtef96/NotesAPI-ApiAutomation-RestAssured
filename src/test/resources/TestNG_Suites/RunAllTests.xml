@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.1.dtd" >
+
+<suite name="Notes API">
+
+    <test name="All Positive And Negative Test" enabled="true">
+        <classes>
+            <class name = "testCases.CreateNoteTests"> </class>
+            <class name = "testCases.DeleteNoteTests"> </class>
+            <class name = "testCases.GetAllNotesTests"> </class>
+            <class name = "testCases.GetNoteTests"> </class>
+            <class name = "testCases.GetProfileTests"> </class>
+            <class name = "testCases.LoginTests"> </class>
+            <class name = "testCases.RegisterTests"> </class>
+            <class name = "testCases.UpdateNoteTests"> </class>
+            <class name = "testCases.UpdateProfileTests"> </class>
+        </classes>
+    </test>
+
+</suite>
