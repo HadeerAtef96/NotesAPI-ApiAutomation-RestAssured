@@ -40,6 +40,7 @@ public class GetProfileTests extends BaseTest {
                 .verifyUserIdFromResponse(json.readTestData("userData.id"));
     }
 
+    //Negative Test Case
     @Test  (groups = {"negative"})
     public void getUserProfileEmptyToken() {
         GetProfile_RequestModel getProfile_requestModel = new GetProfile_RequestModel();
