@@ -40,7 +40,7 @@ jobs:
         run: mvn allure:report
 
       - name: Copy patch file to allure-maven-plugin folder
-        run: cp Open_Allure_Reports.bat target/site/allure-maven-plugin
+        run: cp Open_Allure_Report.bat target/site/allure-maven-plugin
 
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
