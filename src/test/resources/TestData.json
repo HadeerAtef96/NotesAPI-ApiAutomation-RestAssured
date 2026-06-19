@@ -6,6 +6,7 @@
     "id": "6a23596eb1a0ce0296e8ff6c"
   },
 
+
   "noteInfo": {
     "title": "Test Title for Hadeer",
     "description": "Test Description for Hadeer",
@@ -13,6 +14,7 @@
     "completed": "false",
     "id": "6a2a0036c760c30296c6db6f"
   },
+
 
   "successMessages": {
     "register": "User account created successfully",
@@ -27,6 +29,7 @@
     "logout": "User has been successfully logged out"
   },
 
+
   "successStatusCodes": {
     "register": "201",
     "login": "200",
@@ -40,6 +43,7 @@
     "logout": "200"
   },
 
+
   "timeOut": {
     "register": "10000",
     "login": "5000",
@@ -52,6 +56,7 @@
     "getAllNotes": "20000",
     "logout": "5000"
   },
+
 
   "errorMessages": {
     "getNote": {
@@ -92,6 +97,7 @@
       "emptyToken" : "No authentication token specified in x-auth-token header"
     }
   },
+
 
   "errorStatusCodes": {
     "getNote": {

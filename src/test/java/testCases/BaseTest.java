@@ -16,7 +16,6 @@ public class BaseTest {
     @BeforeSuite (alwaysRun = true)
     public void beforeSuite() {
         //Load All Properties and save it into System
-        //Test Comment
         loadConfigurationsIntoSystemProperties();
 
         //Clear Old Allure Results before Every Run
