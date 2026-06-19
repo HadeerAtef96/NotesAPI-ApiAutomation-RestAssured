@@ -35,3 +35,15 @@ jobs:
         continue-on-error: true
         run: >
           mvn clean test
+
+      - name: Generate Allure report
+        run: mvn allure:report
+
+      - name: Copy patch file to allure-maven-plugin folder
+        run: cp src/main/resources/Open_Allure_Reports.bat target/site/allure-maven-plugin
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Allure Report for API Tests
+          path: "target/site/allure-maven-plugin"
