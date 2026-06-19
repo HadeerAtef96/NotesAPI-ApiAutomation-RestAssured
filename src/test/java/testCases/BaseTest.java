@@ -27,7 +27,8 @@ public class BaseTest {
     @AfterSuite (alwaysRun = true)
     public void afterSuite() throws IOException {
         // Open Allure Report Automatically After Run
-        Runtime.getRuntime().exec(System.getProperty("user.dir")+"/Open_Allure_Report.bat");
+        if (System.getenv("GITHUB_ACTIONS") == null)
+            Runtime.getRuntime().exec(System.getProperty("user.dir")+"/Open_Allure_Report.bat");
     }
 
 }
