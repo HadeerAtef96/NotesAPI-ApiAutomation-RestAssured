@@ -29,7 +29,7 @@ jobs:
       - name: Set up Maven
         uses: stCarolas/setup-maven@v5
         with:
-          maven-version: 3.9.4
+          maven-version: 3.9.16
 
       - name: Run tests
         continue-on-error: true
@@ -40,7 +40,7 @@ jobs:
         run: mvn allure:report
 
       - name: Copy patch file to allure-maven-plugin folder
-        run: cp Open_Allure_Report.bat target/site/allure-maven-plugin
+        run: cp .github/workflows/Open_Allure_Report.bat target/site/allure-maven-plugin
 
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
