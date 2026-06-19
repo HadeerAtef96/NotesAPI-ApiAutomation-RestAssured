@@ -34,10 +34,10 @@ jobs:
       - name: Run tests
         continue-on-error: true
         run: >
-          mvn clean test
+          mvn clean test -D"groups=positive,negative"
 
       - name: Generate Allure report
-        run: mvn clean test -D"groups=positive,negative"
+        run: mvn allure:report
 
       - name: Copy patch file to allure-maven-plugin folder
         run: cp .github/workflows/Open_Allure_Report.bat target/site/allure-maven-plugin
