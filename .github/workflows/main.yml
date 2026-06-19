@@ -12,7 +12,7 @@ on:
     - cron: '0 2 * * *'
 
 jobs:
- Ubuntu_Test:
+  Ubuntu_Test:
     runs-on: ubuntu-latest
     continue-on-error: true
 
