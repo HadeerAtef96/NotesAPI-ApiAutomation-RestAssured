@@ -1,4 +1,4 @@
-name: Run API Test Cases
+name: Run All API Positive & Negative Test Cases
 
 on:
   workflow_dispatch:
@@ -37,7 +37,7 @@ jobs:
           mvn clean test
 
       - name: Generate Allure report
-        run: mvn allure:report
+        run: mvn clean test -D"groups=positive,negative"
 
       - name: Copy patch file to allure-maven-plugin folder
         run: cp .github/workflows/Open_Allure_Report.bat target/site/allure-maven-plugin
