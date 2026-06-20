@@ -48,6 +48,10 @@ This project automates Notes API with Positive and Negative test cases for each 
 - Remote Execution using CI Pipeline on GitHub Actions
 - Auto Generation of Allure Report after Test Run
 
+  ##Actions
+  <img width="1829" height="825" alt="image" src="https://github.com/user-attachments/assets/ef71848c-21f5-4178-90e1-c45ab5e13c25" />
+
+
 ## Utilities
 - API Manager for sending all API Requests and different validations on Responses
 - Data Generator for generating different Test Data
