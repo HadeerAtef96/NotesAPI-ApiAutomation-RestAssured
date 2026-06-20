@@ -8,23 +8,53 @@ This project automates API testing for the Notes application using Rest Assured.
 
 ## Technologies Used
 
-- Java
-- Rest Assured
-- TestNG
-- Maven
-- Allure Report
-- Git & GitHub
+- Rest Assured with Java
+- Maven Project
+- TestNG as Testing Framework
+- Request/Response Object Model Design Pattern
+- Test Reporting using Allure
+- Logging using Log4j2
+- Remote Execution on CI Pipeline using GitHub Actions
+- Test Data Management using Json
+- Test Data Generation using JavaFaker
+
+## Endpoints
+- Register new User
+- Login & Logout
+- Update Profile
+- Get Profile
+- Create New Note
+- Update Note
+- Get All Notes
+- Get Note by ID
+- Delete Note
 
 ## Features
-
-- Create Note API Testing
-- Get Note API Testing
-- Update Note API Testing
-- Delete Note API Testing
-- Request and Response Validation
+- Set Request Headers
+- Set Request Body for Post/Put/Delete
+- Set Request Parameters for Get
+- Create Abstracted Method for Sending all types of API Requests
 - Status Code Validation
-- Response Body Validation
-- Test Reporting with Allure
+- Response Body Validation using JsonPath and TestNG Assertions
+- Allure Report for Reporting All Test Results & Logging All Test Steps & Uploding all Requests/Response Sent
+
+## Test Scenarios
+
+### Positive Tests
+
+- Register new User
+- Login with Valid Data
+- Create note with valid data
+- Get existing note
+- Update existing note
+- Delete existing note
+
+### Negative Tests
+
+- Create note with invalid data
+- Get non-existing note
+- Update non-existing note
+- Delete non-existing note
 
 ## Project Structure
 
@@ -70,22 +100,6 @@ Open report:
 ```bash
 allure open target/allure-report
 ```
-
-## Test Scenarios
-
-### Positive Tests
-
-- Create note with valid data
-- Get existing note
-- Update existing note
-- Delete existing note
-
-### Negative Tests
-
-- Create note with invalid data
-- Get non-existing note
-- Update non-existing note
-- Delete non-existing note
 
 ## Author
 
