@@ -3,18 +3,28 @@
 
 <suite name="Notes API">
 
-    <test name="All Positive And Negative Test" enabled="true">
-        <classes>
-            <class name = "testCases.CreateNoteTests"> </class>
-            <class name = "testCases.DeleteNoteTests"> </class>
-            <class name = "testCases.GetAllNotesTests"> </class>
-            <class name = "testCases.GetNoteTests"> </class>
-            <class name = "testCases.GetProfileTests"> </class>
-            <class name = "testCases.LoginTests"> </class>
-            <class name = "testCases.RegisterTests"> </class>
-            <class name = "testCases.UpdateNoteTests"> </class>
-            <class name = "testCases.UpdateProfileTests"> </class>
-        </classes>
+    <test name="Positive Test" enabled="true">
+        <groups>
+            <run>
+                <include name="positive"/>
+            </run>
+        </groups>
+
+        <packages>
+            <package name="testCases"/>
+        </packages>
+    </test>
+
+    <test name="Negative Test" enabled="true">
+        <groups>
+            <run>
+                <include name="negative"/>
+            </run>
+        </groups>
+
+        <packages>
+            <package name="testCases"/>
+        </packages>
     </test>
 
 </suite>
