@@ -37,6 +37,9 @@ This project automates API testing for the Notes application using Rest Assured.
 - Status Code Validation
 - Response Body Validation using JsonPath and TestNG Assertions
 - Allure Report for Reporting All Test Results & Logging All Test Steps & Uploding all Requests/Response Sent
+- Local Execution using TestNG xml file
+- Remote Execution using CI Pipeline on GitHub Actions
+- Auto Generation of Allure Report after Test Run
 
 ## Test Scenarios
 
@@ -87,19 +90,11 @@ mvn test -Dgroups=positive
 mvn test -Dgroups=negative
 ```
 
-## Generate Allure Report
+## Allure Report
+###Generate and Open Allure Report easily in one step by running Open_Allure_Report.bat file
+<img width="1910" height="1076" alt="image" src="https://github.com/user-attachments/assets/dfb92a40-d62b-4fe4-abf7-86db3d2f32e6" />
+<img width="1888" height="1053" alt="image" src="https://github.com/user-attachments/assets/ea9dc18d-105d-4625-8621-fbc4313dbf71" />
 
-Generate report:
-
-```bash
-allure generate target/allure-results --clean -o target/allure-report
-```
-
-Open report:
-
-```bash
-allure open target/allure-report
-```
 
 ## Author
 
