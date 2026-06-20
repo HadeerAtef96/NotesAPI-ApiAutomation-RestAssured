@@ -56,24 +56,20 @@ This project automates Notes API with Positive and Negative test cases for each 
 - LogHelper for Logging Info , Warning and Error Steps with Log4j2
 
 ## Project Structure
-
 ```text
 NotesAPI-ApiAutomation-RestAssured
 │
 ├── .github
 │   └── workflows
-│       ├── RunApiTests.yml
-│       └── Open_Allure_Report.bat
+│       └── RunApiTests.yml
 │
 ├── src
 │   ├── main
 │   │   ├── java
 │   │   │   └── utils
 │   │   │       ├── APIsManager.java
-│   │   │       ├── AllureReportHelper.java
 │   │   │       ├── DataGenerator.java
 │   │   │       ├── JsonReader.java
-│   │   │       ├── LogHelper.java
 │   │   │       └── PropertiesReader.java
 │   │   │
 │   │   └── resources
@@ -83,25 +79,30 @@ NotesAPI-ApiAutomation-RestAssured
 │   │
 │   └── test
 │       ├── java
-│       │   ├── apiObjectModels
-│       │   └── testCases
-│       └── resources
-│           ├── TestData.json
-│           └── TestNG_Suites
-│               ├── PositiveTestCases.xml
-│               ├── NegativeTestCases.xml
-│               ├── RunAllTests.xml
-│               ├── RunAllTests_2.xml
-│               └── RunSingleTest.xml
+│       │
+│       ├── apiObjectModels
+│       │   ├── Register_RequestModel.java
+│       │   ├── Register_ResponseModel.java
+│       │   ├── Login_RequestModel.java
+│       │   ├── Login_ResponseModel.java
+│       │   ├── CreateNote_RequestModel.java
+│       │   ├── CreateNote_ResponseModel.java
+│       │   └── ...
+│       │
+│       └── testCases
+│           ├── BaseTest.java
+│           ├── RegisterTests.java
+│           ├── LoginTests.java
+│           ├── CreateNoteTests.java
+│           ├── GetAllNotesTests.java
+│           └── ...
 │
-├── Open_Allure_Report.bat
 ├── pom.xml
 ├── README.md
 └── .gitignore
 ```
 
 ## Running Tests
-
 ### Run all tests using Maven:
 ```bash
 mvn clean test
