@@ -8,9 +8,9 @@ This project automates Notes API with Positive and Negative test cases for each 
 
 ## Allure Report
 ### Generate and Open Allure Report easily in one step by running Open_Allure_Report.bat file
-
 <img width="1888" height="1053" alt="image" src="https://github.com/user-attachments/assets/ea9dc18d-105d-4625-8621-fbc4313dbf71" />
 
+### Positive Tests & Negative Tests
 <img width="1910" height="1076" alt="image" src="https://github.com/user-attachments/assets/dfb92a40-d62b-4fe4-abf7-86db3d2f32e6" />
 
 ## Technologies Used
@@ -48,23 +48,12 @@ This project automates Notes API with Positive and Negative test cases for each 
 - Remote Execution using CI Pipeline on GitHub Actions
 - Auto Generation of Allure Report after Test Run
 
-## Test Scenarios
-
-### Positive Tests
-
-- Register new User
-- Login with Valid Data
-- Create note with valid data
-- Get existing note
-- Update existing note
-- Delete existing note
-
-### Negative Tests
-
-- Create note with invalid data
-- Get non-existing note
-- Update non-existing note
-- Delete non-existing note
+## Utilities
+- API Manager for sending all API Requests and different validations on Responses
+- Data Generator for generating different Test Data
+- Json Reader for reading Test Data from Json Files using JsonPath
+- Properties Reader for reading Project Configurations from Properties Files
+- LogHelper for Logging Info , Warning and Error Steps with Log4j2
 
 ## Project Structure
 
@@ -81,21 +70,24 @@ src
 
 ## Running Tests
 
-Run all tests using Maven:
-
+### Run all tests using Maven:
 ```bash
-mvn test
+mvn clean test
 ```
+### Run all tests using TestNG Xml
+- RunAllTests.xml
 
-Run specific groups:
-
+### Run positive and negative groups using Maven
 ```bash
-mvn test -Dgroups=positive
+mvn clean test -Dgroups=positive
 ```
 
 ```bash
 mvn test -Dgroups=negative
 ```
+### Run positive and negative groups using Maven
+- PositiveTestCases.xml
+- NegativeTestCases.xml 
 
 ## Author
 
