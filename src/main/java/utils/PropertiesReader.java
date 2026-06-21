@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class PropertiesReader {
 
-    public static String filePath = "src/main/resources/settings.properties";
+    public static String filePath = "src/main/resources/";
 
     @Step
     public static Properties loadConfigurationsIntoSystemProperties() {
