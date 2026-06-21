@@ -48,6 +48,10 @@ This project automates Notes API with Positive and Negative test cases for each 
 - Remote Execution using CI Pipeline on GitHub Actions
 - Auto Generation of Allure Report after Test Run
 
+  ##Actions
+  <img width="1829" height="825" alt="image" src="https://github.com/user-attachments/assets/ef71848c-21f5-4178-90e1-c45ab5e13c25" />
+
+
 ## Utilities
 - API Manager for sending all API Requests and different validations on Responses
 - Data Generator for generating different Test Data
@@ -56,20 +60,64 @@ This project automates Notes API with Positive and Negative test cases for each 
 - LogHelper for Logging Info , Warning and Error Steps with Log4j2
 
 ## Project Structure
-
+```text
+NotesAPI-ApiAutomation-RestAssured
+│
+├── .github
+│   └── workflows
+│       └── RunApiTests.yml
+│
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── utils
+│   │   │       ├── APIsManager.java
+│   │   │       ├── AllureReportHelper.java
+│   │   │       ├── DataGenerator.java
+│   │   │       ├── JsonReader.java
+│   │   │       ├── LogHelper.java
+│   │   │       └── PropertiesReader.java
+│   │   │
+│   │   └── resources
+│   │       ├── allure.properties
+│   │       ├── log4j2.properties
+│   │       └── settings.properties
+│   │
+│   └── test
+│       ├── java
+│       │   ├── apiObjectModels
+│       │   │   ├── Register_RequestModel.java
+│       │   │   ├── Register_ResponseModel.java
+│       │   │   ├── Login_RequestModel.java
+│       │   │   ├── Login_ResponseModel.java
+│       │   │   ├── CreateNote_RequestModel.java
+│       │   │   ├── CreateNote_ResponseModel.java
+│       │   │   └── ...
+│       │   │
+│       │   └── testCases
+│       │       ├── BaseTest.java
+│       │       ├── RegisterTests.java
+│       │       ├── LoginTests.java
+│       │       ├── CreateNoteTests.java
+│       │       ├── GetAllNotesTests.java
+│       │       └── ...
+│       │
+│       └── resources
+│           ├── TestData.json
+│           │
+│           └── TestNG_Suites
+│               ├── PositiveTestCases.xml
+│               ├── NegativeTestCases.xml
+│               ├── RunAllTests.xml
+│               ├── RunAllTests_2.xml
+│               └── RunSingleTest.xml
+│
+├── Open_Allure_Report.bat
+├── pom.xml
+├── README.md
+└── .gitignore
 ```
-src
-├── main
-│   └── java
-├── test
-│   └── java
-├── resources
-│   └── testng.xml
-└── pom.xml
-```
-
 ## Running Tests
-
 ### Run all tests using Maven:
 ```bash
 mvn clean test
