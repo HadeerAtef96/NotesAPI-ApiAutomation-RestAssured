@@ -38,6 +38,7 @@ This project automates Notes API with Positive and Negative test cases for each 
 
 ## Features
 - Using Request/Response Object Model, by setting two classes for each endpoint:
+
   - Request Model Class that contains all Methods performed on Request, such as :
     - Set Request Body and Content Type (Json and form data)
     - Set Request Headers
@@ -46,10 +47,10 @@ This project automates Notes API with Positive and Negative test cases for each 
     - Send the Request
 
 
-- Response Model Class that contains all Methods performed on Request, such as :
-  - Validate on Status Code
-  - Validate on any data from Response Body by TestNG Assertion
-  - Getters to get any data from Response Body by JsonPath
+  - Response Model Class that contains all Methods performed on Request, such as :
+    - Validate on Status Code
+    - Validate on any data from Response Body by TestNG Assertion
+    - Getters to get any data from Response Body by JsonPath
 
 
 - Create Generic Methods that can be reused in Sending any types of API Requests for any Project, which takes the following inputs:
