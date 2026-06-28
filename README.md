@@ -37,20 +37,37 @@ This project automates Notes API with Positive and Negative test cases for each 
 - Delete Note
 
 ## Features
-- Set Request Headers
-- Set Request Body for Post/Put/Delete
-- Set Request Parameters for Get
-- Create Abstracted Method for Sending all types of API Requests
-- Status Code Validation
-- Response Body Validation using JsonPath and TestNG Assertions
-- Allure Report for Reporting All Test Results & Logging All Test Steps & Uploding all Requests/Response Sent
+- Using Request/Response Object Model, by setting two classes for each endpoint:
+  - Request Model Class that contains all Methods performed on Request, such as :
+    - Set Request Body and Content Type (Json and form data)
+    - Set Request Headers
+    - Set Request Parameters for Get (Path Parameters and Query Parameters)
+    - Set Request Authorization
+    - Send the Request
+
+
+- Response Model Class that contains all Methods performed on Request, such as :
+  - Validate on Status Code
+  - Validate on any data from Response Body by TestNG Assertion
+  - Getters to get any data from Response Body by JsonPath
+
+
+- Create Generic Methods that can be reused in Sending any types of API Requests for any Project, which takes the following inputs:
+  - Api Method
+  - Api Url
+  - Request Body and Content Type either **Json** or **FormData** in case of "Post / Put / Patch / Delete"
+  - Request Parameters either **PathParameters** or **QueryParameters** in case of "Get"
+  - Request Headers
+  - It returns the API Response
+
+
+- Allure Report for Reporting All Test Results & Logging All Test Steps & Uploading all Requests/Response Sent
 - Local Execution using TestNG xml file
 - Remote Execution using CI Pipeline on GitHub Actions
 - Auto Generation of Allure Report after Test Run
 
-  ##Actions
+## CI Pipeline
   <img width="1829" height="825" alt="image" src="https://github.com/user-attachments/assets/ef71848c-21f5-4178-90e1-c45ab5e13c25" />
-
 
 ## Utilities
 - API Manager for sending all API Requests and different validations on Responses
@@ -135,7 +152,7 @@ mvn test -Dgroups=negative
 ```
 ### Run positive and negative groups using Maven
 - PositiveTestCases.xml
-- NegativeTestCases.xml 
+- NegativeTestCases.xml
 
 ## Author
 
