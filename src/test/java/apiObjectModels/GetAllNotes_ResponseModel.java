@@ -4,6 +4,8 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.testng.Assert;
 
+import java.util.List;
+
 import static utils.APIsManager.*;
 
 public class GetAllNotes_ResponseModel {
@@ -40,6 +42,12 @@ public class GetAllNotes_ResponseModel {
 
         Assert.assertTrue(actualTimeOut < maximumExpectedTime);
         return this;
+    }
+
+    //Method to Get IDs of Notes
+    @Step
+    public List<String> getAllIDsOfNotes() {
+        return getListOfStringFromResponse(response,"data[*].id");
     }
 
 }

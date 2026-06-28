@@ -25,8 +25,8 @@ public class GetNoteTests extends BaseTest {
         token =
                 loginRequestModel
                         .prepareRequestBodyForLogin(
-                                json.readTestData("userData.email"),
-                                json.readTestData("userData.password")
+                                json.readTestData("userData2.email"),
+                                json.readTestData("userData2.password")
                         )
                         .sendRequestOfLogin()
                         .verifyResponseStatusCode(json.readTestData("successStatusCodes.login"))

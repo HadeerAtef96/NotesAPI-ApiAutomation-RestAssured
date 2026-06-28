@@ -1,9 +1,6 @@
 package testCases;
 
-import apiObjectModels.CreateNote_RequestModel;
-import apiObjectModels.DeleteNote_RequestModel;
-import apiObjectModels.GetNote_RequestModel;
-import apiObjectModels.Login_RequestModel;
+import apiObjectModels.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utils.JsonReader;
@@ -60,6 +57,26 @@ public class DeleteNoteTests extends BaseTest{
                 .verifyMessageFromResponse(json.readTestData("successMessages.deleteNote"))
                 .verifyResponseStatusCode(json.readTestData("successStatusCodes.deleteNote"))
                 .verifyResponseTimeLessThanTimeout(json.readTestData("timeOut.deleteNote"));
+    }
+
+    @Test  (groups = {"positive"})
+    public void deleteMultipleNotesByID(){
+        List<String> allNotesIDs;
+
+        allNotesIDs =
+        new GetAllNotes_RequestModel()
+                .setTokenInRequestHeaders(token)
+                .sendRequestOfGetNote()
+                .verifyMessageFromResponse(json.readTestData("successMessages.getAllNotes"))
+                .getAllIDsOfNotes();
+
+        for(String id: allNotesIDs) {
+            new DeleteNote_RequestModel()
+                    .setTokenInRequestHeaders(token)
+                    .setNoteIdAsPathParameter(id)
+                    .sendRequestOfDeleteNote()
+                    .verifyResponseStatusCode(json.readTestData("successStatusCodes.deleteNote"));
+        }
     }
 
     @Test  (groups = {"negative"})

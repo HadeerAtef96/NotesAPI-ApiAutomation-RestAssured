@@ -1,15 +1,11 @@
 package utils;
 
 import com.jayway.jsonpath.JsonPath;
-import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.testng.Assert;
 
+import java.util.List;
 import java.util.Map;
 
 import static utils.LogHelper.*;
@@ -167,7 +163,18 @@ public class APIsManager {
             logErrorStep("Failed to get the value from JsonPath [%s]".formatted(jsonPathForKey));
             return null;
         }
+    }
 
+    public static List<String> getListOfStringFromResponse(Response response, String jsonPathForKey) {
+        try {
+            List<String> value = JsonPath.read(response.getBody().asString(), jsonPathForKey);
+            logInfoStep("Getting List of Object [%s] from JsonPath [%s] from API Response".formatted(value, jsonPathForKey));
+            return value;
+
+        } catch (Exception e) {
+            logErrorStep("Failed to get the value from JsonPath [%s]".formatted(jsonPathForKey));
+            return null;
+        }
     }
 
     public static boolean getBooleanValueFromResponse(Response response, String jsonPathForKey) {
