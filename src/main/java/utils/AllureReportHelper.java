@@ -9,6 +9,7 @@ import static utils.LogHelper.logErrorStep;
 
 public class AllureReportHelper {
 
+    // Delete Old Files
     public static void deleteOldFiles(File dirPath) {
         File filesList[] = dirPath.listFiles();
         if (filesList != null) {
