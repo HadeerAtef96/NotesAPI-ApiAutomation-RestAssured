@@ -1,9 +1,7 @@
 package testCases;
 
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
 import utils.AllureReportHelper;
 
 import java.io.File;
@@ -13,7 +11,7 @@ import static utils.PropertiesReader.loadConfigurationsIntoSystemProperties;
 
 public class BaseTest {
 
-    @BeforeSuite (alwaysRun = true)
+    @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
         //Load All Properties and save it into System
         loadConfigurationsIntoSystemProperties();
@@ -23,7 +21,7 @@ public class BaseTest {
         AllureReportHelper.deleteOldFiles(file);
     }
 
-    @AfterSuite (alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     public void afterSuite() throws IOException {
         // Open Allure Report Automatically After Run
         AllureReportHelper.autoOpenAllureReport();

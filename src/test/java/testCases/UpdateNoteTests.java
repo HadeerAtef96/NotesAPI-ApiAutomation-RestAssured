@@ -13,7 +13,7 @@ import java.util.List;
 import static utils.DataGenerator.generateItemFromList;
 import static utils.DataGenerator.generateRandomFullName;
 
-public class UpdateNoteTests extends BaseTest{
+public class UpdateNoteTests extends BaseTest {
     //Variables
     String token;
     String noteID;
@@ -21,11 +21,11 @@ public class UpdateNoteTests extends BaseTest{
     //Read Test Data from JsonFile
     JsonReader json = new JsonReader("src/test/resources/TestData.json");
 
-    @BeforeMethod  (alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void loginWithExistingEmail() {
-        Login_RequestModel loginRequestModel = new Login_RequestModel();
+
         token =
-                loginRequestModel
+                new Login_RequestModel()
                         .prepareRequestBodyForLogin(
                                 json.readTestData("userData.email"),
                                 json.readTestData("userData.password")
@@ -35,31 +35,30 @@ public class UpdateNoteTests extends BaseTest{
                         .readTokenFromResponse();
     }
 
-    @BeforeMethod (dependsOnMethods = "loginWithExistingEmail" , alwaysRun = true)
-    public void createNewNoteWithRandomData(){
+    @BeforeMethod(dependsOnMethods = "loginWithExistingEmail", alwaysRun = true)
+    public void createNewNoteWithRandomData() {
         String title = generateRandomFullName();
         String description = generateRandomFullName();
-        String category = generateItemFromList(List.of("Personal","Home","Work"));
+        String category = generateItemFromList(List.of("Personal", "Home", "Work"));
 
-        CreateNote_RequestModel createNoteRequestModel = new CreateNote_RequestModel();
         noteID =
-                createNoteRequestModel
-                        .prepareRequestBodyForCreateNote(title,description,category)
+                new CreateNote_RequestModel()
+                        .prepareRequestBodyForCreateNote(title, description, category)
                         .setTokenInRequestHeaders(token)
                         .sendRequestOfCreateNote()
                         .readNoteIdFromResponse();
     }
 
-    @Test  (groups = {"positive"})
-    public void updateNoteWithRandomData(){
+    @Test(groups = {"positive"})
+    public void updateNoteWithRandomData() {
         String title = generateRandomFullName();
         String description = generateRandomFullName();
-        String category = generateItemFromList(List.of("Personal","Home","Work"));
-        String completedFlag =  generateItemFromList(List.of("true","false"));
+        String category = generateItemFromList(List.of("Personal", "Home", "Work"));
+        String completedFlag = generateItemFromList(List.of("true", "false"));
 
-        UpdateNote_RequestModel updateNoteRequestModel = new UpdateNote_RequestModel();
-        updateNoteRequestModel
-                .prepareRequestBodyForUpdateNote(title,description,category,completedFlag)
+
+        new UpdateNote_RequestModel()
+                .prepareRequestBodyForUpdateNote(title, description, category, completedFlag)
                 .setTokenInRequestHeaders(token)
                 .setNoteIdAsPathParameter(noteID)
                 .sendRequestOfUpdateNote()
@@ -67,8 +66,7 @@ public class UpdateNoteTests extends BaseTest{
                 .verifyResponseStatusCode(json.readTestData("successStatusCodes.updateNote"))
                 .verifyResponseTimeLessThanTimeout(json.readTestData("timeOut.updateNote"));
 
-        GetNote_RequestModel getNoteRequestModel = new GetNote_RequestModel();
-        getNoteRequestModel
+        new GetNote_RequestModel()
                 .setTokenInRequestHeaders(token)
                 .setNoteIDInRequestParameter(noteID)
                 .sendRequestOfGetNote()
@@ -81,15 +79,14 @@ public class UpdateNoteTests extends BaseTest{
                 .verifyCompletedFlagFromResponse(completedFlag);
     }
 
-    @Test  (groups = {"negative"})
+    @Test(groups = {"negative"})
     public void updateNoteIncorrectId() {
         String title = generateRandomFullName();
         String description = generateRandomFullName();
         String category = generateItemFromList(List.of("Personal", "Home", "Work"));
         String completedFlag = generateItemFromList(List.of("true", "false"));
 
-        UpdateNote_RequestModel updateNoteRequestModel = new UpdateNote_RequestModel();
-        updateNoteRequestModel
+        new UpdateNote_RequestModel()
                 .prepareRequestBodyForUpdateNote(title, description, category, completedFlag)
                 .setTokenInRequestHeaders(token)
                 .setNoteIdAsPathParameter(noteID + "0")

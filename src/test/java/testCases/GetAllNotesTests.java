@@ -13,11 +13,11 @@ public class GetAllNotesTests extends BaseTest {
     //Read Test Data from JsonFile
     JsonReader json = new JsonReader("src/test/resources/TestData.json");
 
-    @BeforeMethod  (alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void loginWithExistingEmail() {
-        Login_RequestModel loginRequestModel = new Login_RequestModel();
+
         token =
-                loginRequestModel
+                new Login_RequestModel()
                         .prepareRequestBodyForLogin(
                                 json.readTestData("userData2.email"),
                                 json.readTestData("userData2.password")
@@ -27,10 +27,10 @@ public class GetAllNotesTests extends BaseTest {
                         .readTokenFromResponse();
     }
 
-    @Test  (groups = {"positive"})
-    public void getAllNotesByToken(){
-        GetAllNotes_RequestModel getAllNotesRequestModel = new GetAllNotes_RequestModel();
-        getAllNotesRequestModel
+    @Test(groups = {"positive"})
+    public void getAllNotesByToken() {
+
+        new GetAllNotes_RequestModel()
                 .setTokenInRequestHeaders(token)
                 .sendRequestOfGetNote()
                 .verifyMessageFromResponse(json.readTestData("successMessages.getAllNotes"))
@@ -38,10 +38,11 @@ public class GetAllNotesTests extends BaseTest {
                 .verifyResponseTimeLessThanTimeout(json.readTestData("timeOut.getAllNotes"));
 
     }
-    @Test  (groups = {"negative"})
-    public void getAllNotesWithEmptyToken(){
-        GetAllNotes_RequestModel getAllNotesRequestModel = new GetAllNotes_RequestModel();
-        getAllNotesRequestModel
+
+    @Test(groups = {"negative"})
+    public void getAllNotesWithEmptyToken() {
+
+        new GetAllNotes_RequestModel()
                 .sendRequestOfGetNote()
                 .verifyMessageFromResponse(json.readTestData("errorMessages.getAllNotes.invalidToken"))
                 .verifyResponseStatusCode(json.readTestData("errorStatusCodes.getAllNotes.invalidToken"))

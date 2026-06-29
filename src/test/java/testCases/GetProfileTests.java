@@ -13,11 +13,11 @@ public class GetProfileTests extends BaseTest {
     //Read Test Data from JsonFile
     JsonReader json = new JsonReader("src/test/resources/TestData.json");
 
-    @BeforeMethod  (alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void loginWithExistingEmail() {
-        Login_RequestModel loginRequestModel = new Login_RequestModel();
+
         token =
-                loginRequestModel
+                new Login_RequestModel()
                         .prepareRequestBodyForLogin(
                                 json.readTestData("userData.email"),
                                 json.readTestData("userData.password")
@@ -27,10 +27,10 @@ public class GetProfileTests extends BaseTest {
                         .readTokenFromResponse();
     }
 
-    @Test  (groups = {"positive"})
+    @Test(groups = {"positive"})
     public void getUserProfileByToken() {
-        GetProfile_RequestModel getProfile_requestModel = new GetProfile_RequestModel();
-        getProfile_requestModel
+
+        new GetProfile_RequestModel()
                 .setTokenInRequestHeaders(token)
                 .sendRequestOfGetProfile()
                 .verifyMessageFromResponse(json.readTestData("successMessages.getProfile"))
@@ -41,10 +41,10 @@ public class GetProfileTests extends BaseTest {
     }
 
     //Negative Test Case
-    @Test  (groups = {"negative"})
+    @Test(groups = {"negative"})
     public void getUserProfileEmptyToken() {
-        GetProfile_RequestModel getProfile_requestModel = new GetProfile_RequestModel();
-        getProfile_requestModel
+
+        new GetProfile_RequestModel()
                 .sendRequestOfGetProfile()
                 .verifyMessageFromResponse(json.readTestData("errorMessages.getProfile.emptyToken"))
                 .verifyResponseStatusCode(json.readTestData("errorStatusCodes.getProfile.emptyToken"))

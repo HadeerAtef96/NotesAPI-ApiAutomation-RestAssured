@@ -9,8 +9,6 @@ import org.testng.annotations.Test;
 import utils.JsonReader;
 
 import static utils.DataGenerator.*;
-import static utils.DataGenerator.generateRandomFullName;
-import static utils.DataGenerator.generateRandomPassword;
 
 public class GetNoteTests extends BaseTest {
     //Variables
@@ -19,11 +17,10 @@ public class GetNoteTests extends BaseTest {
     //Read Test Data from JsonFile
     JsonReader json = new JsonReader("src/test/resources/TestData.json");
 
-    @BeforeMethod  (alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void loginWithExistingEmail() {
-        Login_RequestModel loginRequestModel = new Login_RequestModel();
         token =
-                loginRequestModel
+                new Login_RequestModel()
                         .prepareRequestBodyForLogin(
                                 json.readTestData("userData2.email"),
                                 json.readTestData("userData2.password")
@@ -35,8 +32,8 @@ public class GetNoteTests extends BaseTest {
 
     @Test(groups = {"positive"})
     public void getNoteByIdWithCorrectToken() {
-        GetNote_RequestModel getNoteRequestModel = new GetNote_RequestModel();
-        getNoteRequestModel
+
+        new GetNote_RequestModel()
                 .setTokenInRequestHeaders(token)
                 .setNoteIDInRequestParameter(json.readTestData("noteInfo.id"))
                 .sendRequestOfGetNote()
@@ -51,9 +48,9 @@ public class GetNoteTests extends BaseTest {
 
     @Test(groups = {"negative"})
     public void getNoteByIdWithIncorrectToken() {
-        GetNote_RequestModel getNoteRequestModel = new GetNote_RequestModel();
-        getNoteRequestModel
-                .setTokenInRequestHeaders(token+"0")
+
+        new GetNote_RequestModel()
+                .setTokenInRequestHeaders(token + "0")
                 .setNoteIDInRequestParameter(json.readTestData("noteInfo.id"))
                 .sendRequestOfGetNote()
                 .verifyMessageFromResponse(json.readTestData("errorMessages.getNote.invalidToken"))
@@ -67,17 +64,16 @@ public class GetNoteTests extends BaseTest {
         String randomName = generateRandomFullName();
         String randomPassword = generateRandomPassword();
 
-        Register_RequestModel registerRequestModel = new Register_RequestModel();
-        registerRequestModel
+        new Register_RequestModel()
                 .prepareRequestBodyOfRegister(randomName, randomEmail, randomPassword)
                 .sendRequestOfRegister();
 
-       Login_RequestModel loginRequestModel = new Login_RequestModel();
+
         String token2 =
-                loginRequestModel
-                .prepareRequestBodyForLogin(randomEmail, randomPassword)
-                .sendRequestOfLogin()
-                .readTokenFromResponse();
+                new Login_RequestModel()
+                        .prepareRequestBodyForLogin(randomEmail, randomPassword)
+                        .sendRequestOfLogin()
+                        .readTokenFromResponse();
 
         GetNote_RequestModel getNoteRequestModel = new GetNote_RequestModel();
         getNoteRequestModel
@@ -91,14 +87,13 @@ public class GetNoteTests extends BaseTest {
 
     @Test(groups = {"negative"})
     public void getNoteByIdAfterLogout() {
-        Logout_RequestModel logoutRequestModel = new Logout_RequestModel();
-        logoutRequestModel
+
+        new Logout_RequestModel()
                 .setTokenInRequestHeaders(token)
                 .sendRequestOfLogout()
                 .verifyResponseStatusCode(json.readTestData("successStatusCodes.logout"));
 
-        GetNote_RequestModel getNoteRequestModel = new GetNote_RequestModel();
-        getNoteRequestModel
+        new GetNote_RequestModel()
                 .setTokenInRequestHeaders(token)
                 .setNoteIDInRequestParameter(json.readTestData("noteInfo.id"))
                 .sendRequestOfGetNote()

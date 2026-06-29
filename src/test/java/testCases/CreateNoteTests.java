@@ -17,11 +17,10 @@ public class CreateNoteTests extends BaseTest {
     //Read Test Data from JsonFile
     JsonReader json = new JsonReader("src/test/resources/TestData.json");
 
-    @BeforeMethod  (alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void loginWithExistingEmail() {
-        Login_RequestModel loginRequestModel = new Login_RequestModel();
         token =
-                loginRequestModel
+                new Login_RequestModel()
                         .prepareRequestBodyForLogin(
                                 json.readTestData("userData.email"),
                                 json.readTestData("userData.password")
@@ -32,12 +31,14 @@ public class CreateNoteTests extends BaseTest {
 
     }
 
-    @Test  (groups = {"positive"})
+    @Test(groups = {"positive"})
     public void createNewNoteWithStaticData() {
-        CreateNote_RequestModel createNoteRequestModel = new CreateNote_RequestModel();
         String noteID =
-                createNoteRequestModel
-                        .prepareRequestBodyForCreateNote(json.readTestData("noteInfo.title"), json.readTestData("noteInfo.description"), json.readTestData("noteInfo.category"))
+                new CreateNote_RequestModel()
+                        .prepareRequestBodyForCreateNote(
+                                json.readTestData("noteInfo.title"),
+                                json.readTestData("noteInfo.description"),
+                                json.readTestData("noteInfo.category"))
                         .setTokenInRequestHeaders(token)
                         .sendRequestOfCreateNote()
                         .verifyMessageFromResponse(json.readTestData("successMessages.createNote"))
@@ -48,16 +49,15 @@ public class CreateNoteTests extends BaseTest {
                         .readNoteIdFromResponse();
     }
 
-    @Test  (groups = {"positive"})
+    @Test(groups = {"positive"})
     public void createNewNoteWithRandomData() {
-        CreateNote_RequestModel createNoteRequestModel = new CreateNote_RequestModel();
 
         String title = generateRandomFullName();
         String description = generateRandomFullName();
         String category = generateItemFromList(List.of("Personal", "Home", "Work"));
 
         String noteID =
-                createNoteRequestModel
+                new CreateNote_RequestModel()
                         .prepareRequestBodyForCreateNote(title, description, category)
                         .setTokenInRequestHeaders(token)
                         .sendRequestOfCreateNote()
@@ -68,25 +68,31 @@ public class CreateNoteTests extends BaseTest {
                         .verifyUserIdFromResponse(json.readTestData("userData.id"))
                         .readNoteIdFromResponse();
     }
-    @Test  (groups = {"negative"})
+
+    @Test(groups = {"negative"})
     public void createNewNoteWithEmptyTitle() {
-        CreateNote_RequestModel createNoteRequestModel = new CreateNote_RequestModel();
-                createNoteRequestModel
-                        .prepareRequestBodyForCreateNote(null, json.readTestData("noteInfo.description"), json.readTestData("noteInfo.category"))
-                        .setTokenInRequestHeaders(token)
-                        .sendRequestOfCreateNote()
-                        .verifyMessageFromResponse(json.readTestData("errorMessages.createNote.emptyTitle"))
-                        .verifyResponseStatusCode(json.readTestData("errorStatusCodes.createNote.emptyTitle"))
-                        .verifyResponseTimeLessThanTimeout(json.readTestData("timeOut.createNote"));
+        new CreateNote_RequestModel()
+                .prepareRequestBodyForCreateNote(
+                        null,
+                        json.readTestData("noteInfo.description"),
+                        json.readTestData("noteInfo.category"))
+                .setTokenInRequestHeaders(token)
+                .sendRequestOfCreateNote()
+                .verifyMessageFromResponse(json.readTestData("errorMessages.createNote.emptyTitle"))
+                .verifyResponseStatusCode(json.readTestData("errorStatusCodes.createNote.emptyTitle"))
+                .verifyResponseTimeLessThanTimeout(json.readTestData("timeOut.createNote"));
 
     }
 
-    @Test  (groups = {"negative"})
+    @Test(groups = {"negative"})
     public void createNewNoteWithUndefineCategory() {
         String category = generateRandomName();
-        CreateNote_RequestModel createNoteRequestModel = new CreateNote_RequestModel();
-        createNoteRequestModel
-                .prepareRequestBodyForCreateNote(json.readTestData("noteInfo.title"), json.readTestData("noteInfo.description"),category )
+
+        new CreateNote_RequestModel()
+                .prepareRequestBodyForCreateNote(
+                        json.readTestData("noteInfo.title"),
+                        json.readTestData("noteInfo.description"),
+                        category)
                 .setTokenInRequestHeaders(token)
                 .sendRequestOfCreateNote()
                 .verifyMessageFromResponse(json.readTestData("errorMessages.createNote.undefineCategory"))

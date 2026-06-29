@@ -7,9 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utils.JsonReader;
 
-import static utils.DataGenerator.generateRandomCompany;
-import static utils.DataGenerator.generateRandomFullName;
-import static utils.DataGenerator.generateRandomPhone;
+import static utils.DataGenerator.*;
 
 public class UpdateProfileTests extends BaseTest {
 
@@ -19,11 +17,10 @@ public class UpdateProfileTests extends BaseTest {
     //Read Test Data from JsonFile
     JsonReader json = new JsonReader("src/test/resources/TestData.json");
 
-    @BeforeMethod  (alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void loginWithExistingEmail() {
-        Login_RequestModel loginRequestModel = new Login_RequestModel();
         token =
-                loginRequestModel
+                new Login_RequestModel()
                         .prepareRequestBodyForLogin(
                                 json.readTestData("userData.email"),
                                 json.readTestData("userData.password")
@@ -33,14 +30,13 @@ public class UpdateProfileTests extends BaseTest {
                         .readTokenFromResponse();
     }
 
-    @Test  (groups = {"positive"})
+    @Test(groups = {"positive"})
     public void UpdateUserProfileWithRandomData() {
         String name = generateRandomFullName();
         String phone = generateRandomPhone();
         String company = generateRandomCompany();
 
-        UpdateProfile_RequestModel updateProfileRequestModel = new UpdateProfile_RequestModel();
-        updateProfileRequestModel
+        new UpdateProfile_RequestModel()
                 .prepareRequestBodyOfUpdateProfile(name, phone, company)
                 .setTokenInRequestHeaders(token)
                 .sendRequestOfUpdateProfile()
@@ -48,8 +44,7 @@ public class UpdateProfileTests extends BaseTest {
                 .verifyResponseStatusCode(json.readTestData("successStatusCodes.updateProfile"))
                 .verifyResponseTimeLessThanTimeout(json.readTestData("timeOut.updateProfile"));
 
-        GetProfile_RequestModel getProfile_requestModel = new GetProfile_RequestModel();
-        getProfile_requestModel
+        new GetProfile_RequestModel()
                 .setTokenInRequestHeaders(token)
                 .sendRequestOfGetProfile()
                 .verifyResponseStatusCode(json.readTestData("successStatusCodes.getProfile"))
@@ -59,13 +54,12 @@ public class UpdateProfileTests extends BaseTest {
     }
 
 
-    @Test  (groups = {"negative"})
+    @Test(groups = {"negative"})
     public void UpdateUserProfileEmptyName() {
         String phone = generateRandomPhone();
         String company = generateRandomCompany();
 
-        UpdateProfile_RequestModel updateProfileRequestModel = new UpdateProfile_RequestModel();
-        updateProfileRequestModel
+        new UpdateProfile_RequestModel()
                 .prepareRequestBodyOfUpdateProfile(null, phone, company)
                 .setTokenInRequestHeaders(token)
                 .sendRequestOfUpdateProfile()
@@ -73,16 +67,16 @@ public class UpdateProfileTests extends BaseTest {
                 .verifyResponseStatusCode(json.readTestData("errorStatusCodes.updateProfile.emptyName"))
                 .verifyResponseTimeLessThanTimeout(json.readTestData("timeOut.updateProfile"));
     }
-    @Test  (groups = {"negative"})
+
+    @Test(groups = {"negative"})
     public void UpdateUserProfileIncorrectToken() {
         String name = generateRandomFullName();
         String phone = generateRandomPhone();
         String company = generateRandomCompany();
 
-        UpdateProfile_RequestModel updateProfileRequestModel = new UpdateProfile_RequestModel();
-        updateProfileRequestModel
+        new UpdateProfile_RequestModel()
                 .prepareRequestBodyOfUpdateProfile(name, phone, company)
-                .setTokenInRequestHeaders(token+ "0")
+                .setTokenInRequestHeaders(token + "0")
                 .sendRequestOfUpdateProfile()
                 .verifyMessageFromResponse(json.readTestData("errorMessages.updateProfile.incorrectToken"))
                 .verifyResponseStatusCode(json.readTestData("errorStatusCodes.updateProfile.incorrectToken"))

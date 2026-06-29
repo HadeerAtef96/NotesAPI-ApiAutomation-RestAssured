@@ -10,7 +10,7 @@ import java.util.List;
 import static utils.DataGenerator.generateItemFromList;
 import static utils.DataGenerator.generateRandomFullName;
 
-public class DeleteNoteTests extends BaseTest{
+public class DeleteNoteTests extends BaseTest {
     //Variables
     String token;
     String noteID;
@@ -18,11 +18,10 @@ public class DeleteNoteTests extends BaseTest{
     //Read Test Data from JsonFile
     JsonReader json = new JsonReader("src/test/resources/TestData.json");
 
-    @BeforeMethod  (alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void loginWithExistingEmail() {
-        Login_RequestModel loginRequestModel = new Login_RequestModel();
         token =
-                loginRequestModel
+                new Login_RequestModel()
                         .prepareRequestBodyForLogin(
                                 json.readTestData("userData.email"),
                                 json.readTestData("userData.password")
@@ -32,25 +31,23 @@ public class DeleteNoteTests extends BaseTest{
                         .readTokenFromResponse();
     }
 
-    @BeforeMethod (dependsOnMethods = "loginWithExistingEmail" , alwaysRun = true)
-    public void createNewNoteWithRandomData(){
+    @BeforeMethod(dependsOnMethods = "loginWithExistingEmail", alwaysRun = true)
+    public void createNewNoteWithRandomData() {
         String title = generateRandomFullName();
         String description = generateRandomFullName();
-        String category = generateItemFromList(List.of("Personal","Home","Work"));
+        String category = generateItemFromList(List.of("Personal", "Home", "Work"));
 
-        CreateNote_RequestModel createNoteRequestModel = new CreateNote_RequestModel();
         noteID =
-                createNoteRequestModel
-                        .prepareRequestBodyForCreateNote(title,description,category)
+                new CreateNote_RequestModel()
+                        .prepareRequestBodyForCreateNote(title, description, category)
                         .setTokenInRequestHeaders(token)
                         .sendRequestOfCreateNote()
                         .readNoteIdFromResponse();
     }
 
-    @Test  (groups = {"positive"})
-    public void deleteNoteByID(){
-        DeleteNote_RequestModel deleteNoteRequestModel= new DeleteNote_RequestModel();
-        deleteNoteRequestModel
+    @Test(groups = {"positive"})
+    public void deleteNoteByID() {
+        new DeleteNote_RequestModel()
                 .setTokenInRequestHeaders(token)
                 .setNoteIdAsPathParameter(noteID)
                 .sendRequestOfDeleteNote()
@@ -59,18 +56,18 @@ public class DeleteNoteTests extends BaseTest{
                 .verifyResponseTimeLessThanTimeout(json.readTestData("timeOut.deleteNote"));
     }
 
-    @Test  (groups = {"positive"})
-    public void deleteMultipleNotesByID(){
+    @Test(groups = {"positive"})
+    public void deleteMultipleNotesByID() {
         List<String> allNotesIDs;
 
         allNotesIDs =
-        new GetAllNotes_RequestModel()
-                .setTokenInRequestHeaders(token)
-                .sendRequestOfGetNote()
-                .verifyMessageFromResponse(json.readTestData("successMessages.getAllNotes"))
-                .getAllIDsOfNotes();
+                new GetAllNotes_RequestModel()
+                        .setTokenInRequestHeaders(token)
+                        .sendRequestOfGetNote()
+                        .verifyMessageFromResponse(json.readTestData("successMessages.getAllNotes"))
+                        .getAllIDsOfNotes();
 
-        for(String id: allNotesIDs) {
+        for (String id : allNotesIDs) {
             new DeleteNote_RequestModel()
                     .setTokenInRequestHeaders(token)
                     .setNoteIdAsPathParameter(id)
@@ -79,22 +76,22 @@ public class DeleteNoteTests extends BaseTest{
         }
     }
 
-    @Test  (groups = {"negative"})
-    public void deleteNoteByInvalidID(){
-        DeleteNote_RequestModel deleteNoteRequestModel= new DeleteNote_RequestModel();
-        deleteNoteRequestModel
+    @Test(groups = {"negative"})
+    public void deleteNoteByInvalidID() {
+
+        new DeleteNote_RequestModel()
                 .setTokenInRequestHeaders(token)
-                .setNoteIdAsPathParameter(noteID+"0")
+                .setNoteIdAsPathParameter(noteID + "0")
                 .sendRequestOfDeleteNote()
                 .verifyMessageFromResponse(json.readTestData("errorMessages.deleteNote.incorrectId"))
                 .verifyResponseStatusCode(json.readTestData("errorStatusCodes.deleteNote.incorrectId"))
                 .verifyResponseTimeLessThanTimeout(json.readTestData("timeOut.deleteNote"));
     }
 
-    @Test  (groups = {"negative"})
-    public void getNoteByIDAfterDelete(){
-        DeleteNote_RequestModel deleteNoteRequestModel= new DeleteNote_RequestModel();
-        deleteNoteRequestModel
+    @Test(groups = {"negative"})
+    public void getNoteByIDAfterDelete() {
+
+        new DeleteNote_RequestModel()
                 .setTokenInRequestHeaders(token)
                 .setNoteIdAsPathParameter(noteID)
                 .sendRequestOfDeleteNote()
@@ -102,8 +99,7 @@ public class DeleteNoteTests extends BaseTest{
                 .verifyResponseStatusCode(json.readTestData("successStatusCodes.deleteNote"))
                 .verifyResponseTimeLessThanTimeout(json.readTestData("timeOut.deleteNote"));
 
-        GetNote_RequestModel getNoteRequestModel = new GetNote_RequestModel();
-        getNoteRequestModel
+        new GetNote_RequestModel()
                 .setTokenInRequestHeaders(token)
                 .setNoteIDInRequestParameter(noteID)
                 .sendRequestOfGetNote()

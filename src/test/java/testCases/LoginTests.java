@@ -7,7 +7,7 @@ import utils.JsonReader;
 
 import static utils.DataGenerator.*;
 
-public class LoginTests extends BaseTest{
+public class LoginTests extends BaseTest {
     //Variables
     String token;
 
@@ -16,10 +16,12 @@ public class LoginTests extends BaseTest{
 
     @Test(groups = {"positive"})
     public void loginWithExistingEmail() {
-        Login_RequestModel loginRequestModel = new Login_RequestModel();
+
         token =
-                loginRequestModel
-                        .prepareRequestBodyForLogin(json.readTestData("userData.email"), json.readTestData("userData.password"))
+                new Login_RequestModel()
+                        .prepareRequestBodyForLogin(
+                                json.readTestData("userData.email"),
+                                json.readTestData("userData.password"))
                         .sendRequestOfLogin()
                         .verifyMessageFromResponse(json.readTestData("successMessages.login"))
                         .verifyResponseStatusCode(json.readTestData("successStatusCodes.login"))
@@ -33,9 +35,8 @@ public class LoginTests extends BaseTest{
         String randomName = generateRandomFullName();
         String randomPassword = generateRandomPassword();
 
-        Register_RequestModel registerRequestModel = new Register_RequestModel();
         String userID =
-                registerRequestModel
+                new Register_RequestModel()
                         .prepareRequestBodyOfRegister(randomName, randomEmail, randomPassword)
                         .sendRequestOfRegister()
                         .verifyEmailFromResponse(randomEmail)
@@ -44,8 +45,7 @@ public class LoginTests extends BaseTest{
                         .verifyResponseTimeLessThanTimeout(json.readTestData("timeOut.register"))
                         .getUserIdFromResponse();
 
-        Login_RequestModel loginRequestModel = new Login_RequestModel();
-        loginRequestModel
+        new Login_RequestModel()
                 .prepareRequestBodyForLogin(randomEmail, randomPassword)
                 .sendRequestOfLogin()
                 .verifyMessageFromResponse(json.readTestData("successMessages.login"))
@@ -58,10 +58,11 @@ public class LoginTests extends BaseTest{
     @Test(groups = {"negative"})
     public void loginWithNonExistingEmail() {
         String randomEmail = generateRandomEmail();
-        Login_RequestModel loginRequestModel = new Login_RequestModel();
 
-        loginRequestModel
-                .prepareRequestBodyForLogin(randomEmail,  json.readTestData("userData.password"))
+        new Login_RequestModel()
+                .prepareRequestBodyForLogin(
+                        randomEmail,
+                        json.readTestData("userData.password"))
                 .sendRequestOfLogin()
                 .verifyMessageFromResponse(json.readTestData("errorMessages.login.invalidCredentials"))
                 .verifyResponseStatusCode(json.readTestData("errorStatusCodes.login.invalidCredentials"))
@@ -71,10 +72,11 @@ public class LoginTests extends BaseTest{
     @Test(groups = {"negative"})
     public void loginWithNonExistingPassword() {
         String randomPassword = generateRandomPassword();
-        Login_RequestModel loginRequestModel = new Login_RequestModel();
 
-        loginRequestModel
-                .prepareRequestBodyForLogin(json.readTestData("userData.email"),  randomPassword)
+        new Login_RequestModel()
+                .prepareRequestBodyForLogin(
+                        json.readTestData("userData.email"),
+                        randomPassword)
                 .sendRequestOfLogin()
                 .verifyMessageFromResponse(json.readTestData("errorMessages.login.invalidCredentials"))
                 .verifyResponseStatusCode(json.readTestData("errorStatusCodes.login.invalidCredentials"))
